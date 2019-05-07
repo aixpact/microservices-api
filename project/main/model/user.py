@@ -44,8 +44,7 @@ class User(db.Model):
             }
             return jwt.encode(
                 payload,
-                current_app.config['SECRET_KEY'],
-                # key,
+                current_app.config['SECRET_KEY'],  # key,
                 algorithm='HS256'
             )
         except Exception as e:
