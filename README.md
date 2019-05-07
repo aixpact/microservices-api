@@ -1,19 +1,23 @@
-# Microservices container #
+# Microservices container - boilerplate #
+
+
 
 ## Connecting microservice container to main-app
 
 #### Example;
 
+copy boilerplate code for new microservice
 ```
-name-service
-dir: ../name_microservice
-port: 7000
+cd <dir main-service>
+mkdir name_microservice
 ```
+follow steps below
+port number (7000) is arbitrare
 
 
 ### 1. Add feature/service to docker-compose
 
-./main_app/docker-compose.yml
+file: ./main_app/docker-compose.yml
 
 ```
   name-service:
@@ -29,14 +33,16 @@ port: 7000
 
 ### 2. Run wysgi microservice container on port
 
-dir: ../name_microservice/Dockerfile
+file: ../name_microservice/Dockerfile
 
 `CMD gunicorn -w 2 -b 0.0.0.0:7000 --reload --access-logfile - "project.app:create_app()"`
 
 
-### 3. Connect nginx to wysgi - Bind nginx incoming route to gunicorn route
+### 3. Connect nginx to wysgi
 
-dir: ./main_app/nginx/nginx.conf
+Bind nginx incoming route to gunicorn route
+
+file: ./main_app/nginx/nginx.conf
 
 ```
         location /api {
@@ -55,7 +61,7 @@ dir: ./main_app/nginx/nginx.conf
 
 ### 4. Instantiate blueprint in microservice
 
-dir: ../name_microservice/project/home/__init__.py
+file: ../name_microservice/project/home/__init__.py
 
 ```
 blueprint = Blueprint('hello_blueprint', __name__,
@@ -67,13 +73,13 @@ blueprint = Blueprint('hello_blueprint', __name__,
 
 ### 5. Import blueprint in views.py
 
-dir: ../name_microservice/project/home/views.py
+file: ../name_microservice/project/home/views.py
 
 `from . import blueprint`
 
 ### 6. Import -blueprint with views- in app.py and register
 
-dir: ../name_microservice/project/app.py
+file: ../name_microservice/project/app.py
 
 `from .home.views import blueprint`
 
@@ -83,14 +89,20 @@ dir: ../name_microservice/project/app.py
 
 ### 7. Run containers
 
+Stop running containers (if any) with
+`ctrl-c`
+
+Stop, clean and start (with build) containers
+
 `docker-compose stop && docker-compose rm -f && docker-compose up --build`
 
-ctrl-c first if containers are running
 
-### 8. Reset database
+### 8. Reset database - with CLI setup
 Open new terminal:
-
-`docker-compose exec app_name app_name db reset`
+```
+cd <main-service dir>
+docker-compose exec main-service app_name db reset
+```
 
 ### 9. Start browsing
 
@@ -98,11 +110,28 @@ localhost/route_name
 
 shift-command-r to hard refresh
 
-### 10. CI-CD
 
-Build container from Git repo - change docker-compose build-context
+### 10. Git
 
-```python
+Create GitHub repo
+
+```
+git init
+git add ./*
+git status
+git commit -am "first commit"
+git remote add origin https://github.com/<account/repo_name.git>
+git push -u origin master
+```
+
+## When collaborating or using GitHub for containers or using CI-CD
+
+### 11. Adjust docker-compose
+
+Set context to Dockerfile location on GitHub (repo address)
+
+
+```
   name-service:
     `container_name: name-service
     build:
@@ -113,3 +142,15 @@ Build container from Git repo - change docker-compose build-context
     ports:
       - '7001:7000'                          # HOST(port exposed to browser):CONTAINER(port nginx listens to)
 ```
+
+Build container from Git repo - change docker-compose build-context
+
+### 12. Docker-compose up
+
+Stop running containers (if any) with
+`ctrl-c`
+
+Stop, clean and start (with build) containers
+
+`docker-compose stop && docker-compose rm -f && docker-compose up --build`
+
