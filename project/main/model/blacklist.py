@@ -1,4 +1,4 @@
-from .. import db
+from .extentions import db
 import datetime
 
 

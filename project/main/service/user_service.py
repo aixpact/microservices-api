@@ -1,7 +1,7 @@
 import uuid
 import datetime
 
-from .. import db
+from .extentions import db
 from ..model.user import User
 
 
