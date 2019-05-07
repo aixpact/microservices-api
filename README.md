@@ -16,8 +16,8 @@ copy boilerplate code for new microservice into folder which contains main-servi
 cd <dir main-service>
 mkdir name_microservice
 ```
-follow steps below
-(port number 7000 is arbitrare)
+
+## Follow steps below (port number 7000 is arbitrare):
 
 
 ### 1. Add feature/service to docker-compose
