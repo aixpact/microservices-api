@@ -19,6 +19,7 @@ def create_app():
 
     app.register_blueprint(home_blueprint)
     app.register_blueprint(main_blueprint)
+    app.app_context().push()
     register_extensions(app)
 
     return app
