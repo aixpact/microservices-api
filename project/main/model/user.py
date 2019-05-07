@@ -1,8 +1,8 @@
-
+from flask import current_app
 from project.extensions import db, flask_bcrypt
 import datetime
 from .blacklist import BlacklistToken
-from ..config import key
+# from ..config import key
 import jwt
 
 
@@ -44,7 +44,8 @@ class User(db.Model):
             }
             return jwt.encode(
                 payload,
-                key,
+                current_app.config['SECRET_KEY'])
+                # key,
                 algorithm='HS256'
             )
         except Exception as e:
