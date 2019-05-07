@@ -1,5 +1,5 @@
 
-from project.app import db, flask_bcrypt
+from project.extensions import db, flask_bcrypt
 import datetime
 from .blacklist import BlacklistToken
 from ..config import key
