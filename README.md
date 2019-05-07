@@ -4,15 +4,20 @@
 
 ## Connecting microservice container to main-app
 
+Please find below code snippets, for cheatsheet use.
+
+
+
 #### Example;
 
-copy boilerplate code for new microservice
+copy boilerplate code for new microservice into folder which contains main-service (with docker-compose.yml and nginx/nginx.conf).
+
 ```
 cd <dir main-service>
 mkdir name_microservice
 ```
 follow steps below
-port number (7000) is arbitrare
+(port number 7000 is arbitrare)
 
 
 ### 1. Add feature/service to docker-compose
