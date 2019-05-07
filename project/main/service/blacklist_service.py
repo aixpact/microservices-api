@@ -1,4 +1,4 @@
-from project.app import db
+from project.extensions import db
 
 from ..model.blacklist import BlacklistToken
 
