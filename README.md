@@ -25,7 +25,7 @@ port: 7000
 ### 2. Run wysgi microservice container on port
 dir: ../name_microservice/Dockerfile
 
-CMD gunicorn -w 2 -b 0.0.0.0:7000 --reload --access-logfile - "project.app:create_app()"
+`CMD gunicorn -w 2 -b 0.0.0.0:7000 --reload --access-logfile - "project.app:create_app()"`
 
 
 ### 3. Connect nginx to wysgi - Bind nginx incoming route to gunicorn route
@@ -46,35 +46,37 @@ dir: ./main_app/nginx/nginx.conf
 
 ### 4. Instantiate blueprint in microservice
 dir: ../name_microservice/project/home/__init__.py
-blueprint = Blueprint('hello_blueprint', __name__,
+`blueprint = Blueprint('hello_blueprint', __name__,
                         url_prefix='/some_prefix',
                         template_folder='templates',
                         # static_folder='static'
-)
+)`
 
 ### 5. Import blueprint in views.py
 dir: ../name_microservice/project/home/views.py
-from . import blueprint
+`from . import blueprint`
 
 ### 6. Import -blueprint with views- in app.py and register
 dir: ../name_microservice/project/app.py
-from .home.views import blueprint
-...
-app.register_blueprint(blueprint)
+`from .home.views import blueprint`
+`...`
+`app.register_blueprint(blueprint)`
 
-### 7. docker-compose stop && docker-compose rm -f && docker-compose up --build
+### 7. Run containers
+`docker-compose stop && docker-compose rm -f && docker-compose up --build`
 ctrl-c first if containers are running
 
 ### 8. Reset database
 Open new terminal:
-docker-compose exec app_name app_name db reset
+`docker-compose exec app_name app_name db reset`
 
 ### 9. Start browsing
-localhost/route
+localhost/route_name
 shift-command-r to hard refresh
 
 ### 10. CI-CD
-Build container from Git repo
+Build container from Git repo - change docker-compose build-context
+`
   name-service:
     container_name: name-service
     build:
@@ -84,4 +86,4 @@ Build container from Git repo
       - '../name_microservice:/project_path' # /local_folder:/container_folder
     ports:
       - '7001:7000'                          # HOST(port exposed to browser):CONTAINER(port nginx listens to)
-
+`
