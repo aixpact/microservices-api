@@ -1,7 +1,7 @@
 from flask import Flask
 
 from .home.views import blueprint as home_blueprint
-from .main.views import blueprint as main_blueprint
+from .main import blueprint as main_blueprint
 from .extensions import db, flask_bcrypt
 
 
