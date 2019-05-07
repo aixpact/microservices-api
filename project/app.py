@@ -1,13 +1,8 @@
 from flask import Flask
-from importlib import import_module
-# from .home import blueprint
-from .home.views import blueprint
 
-
-# def register_blueprints(app):
-#     for module_name in ('hello',):
-#         module = import_module('hello_app.{}.views'.format(module_name))
-#         app.register_blueprint(module.blueprint)
+from .home.views import blueprint as home_blueprint
+from .main.views import blueprint as main_blueprint
+from .extensions import db, flask_bcrypt
 
 
 def create_app():
@@ -17,7 +12,25 @@ def create_app():
     :return: Flask app
     """
     app = Flask(__name__)
-    app.register_blueprint(blueprint)
-    # register_blueprints(app)
+
+    app.config.from_object('config.settings')
+    app.config.from_pyfile('settings.py', silent=True)
+    app.config['SWAGGER_UI_JSONEDITOR'] = True  # FJE change swagger from json object to fields
+
+    app.register_blueprint(home_blueprint)
+    app.register_blueprint(main_blueprint)
+    register_extensions(app)
 
     return app
+
+
+def register_extensions(app):
+    """Register 0 or more extensions (mutates the app passed in).
+
+    :param app: Flask application instance
+    :return: None
+    """
+    db.init_app(app)
+    flask_bcrypt.init_app(app)
+
+    return None
