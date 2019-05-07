@@ -1,4 +1,4 @@
-import OrderedDict
+from collections import OrderedDict
 from flask import current_app
 from project.extensions import db, flask_bcrypt
 import datetime
