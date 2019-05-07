@@ -4,18 +4,18 @@
 
 #### Example;
 
-`
+```
 name-service
 dir: ../name_microservice
 port: 7000
-`
+```
 
 
 ### 1. Add feature/service to docker-compose
 
 ./main_app/docker-compose.yml
 
-`
+```
   name-service:
     container_name: name-service
     build:
@@ -25,7 +25,7 @@ port: 7000
       - '../name_microservice:/project_path' # /local_folder:/container_folder
     ports:
       - '7001:7000'                          # HOST(port exposed to browser):CONTAINER(port nginx listens to)
-`
+```
 
 ### 2. Run wysgi microservice container on port
 
@@ -38,7 +38,7 @@ dir: ../name_microservice/Dockerfile
 
 dir: ./main_app/nginx/nginx.conf
 
-`
+```
         location /api {
             proxy_pass              http://api-service:7000;
             proxy_http_version      1.1;
@@ -51,18 +51,19 @@ dir: ./main_app/nginx/nginx.conf
             # proxy_set_header        X-Forwarded-Host $server_name;  #
             client_max_body_size    5M;  #
         }
-`
+```
 
 ### 4. Instantiate blueprint in microservice
 
 dir: ../name_microservice/project/home/__init__.py
 
-`
+```
 blueprint = Blueprint('hello_blueprint', __name__,
                         url_prefix='/some_prefix',
                         template_folder='templates',
                         # static_folder='static'
-)`
+)
+```
 
 ### 5. Import blueprint in views.py
 
@@ -101,14 +102,14 @@ shift-command-r to hard refresh
 
 Build container from Git repo - change docker-compose build-context
 
-`
+```python
   name-service:
-    container_name: name-service\
-    build:\
-      context: https://github.com/aixpact/microservice-api.git\
-      dockerfile: Dockerfile\
-    volumes:\
-      - '../name_microservice:/project_path' # /local_folder:/container_folder\
+    `container_name: name-service
+    build:
+      context: https://github.com/aixpact/microservice-api.git
+      dockerfile: Dockerfile
+    volumes:
+      - '../name_microservice:/project_path' # /local_folder:/container_folder
     ports:
-      - '7001:7000'                          # HOST(port exposed to browser):CONTAINER(port nginx listens to)\
-`
+      - '7001:7000'                          # HOST(port exposed to browser):CONTAINER(port nginx listens to)
+```
