@@ -1,0 +1,98 @@
+<div class="nav_menu">
+  <nav class="navbar navbar-default navbar-static-top">
+<!--   <nav> -->
+    <div class="nav toggle">
+      <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <!-- <ul class="nav navbar-nav navbar-right"> -->
+      <li class="">
+        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <img src="/static/images/user.png" alt="">{{ current_user.username }}
+          <span class=" fa fa-angle-down"></span>
+        </a>
+        <!-- <ul class="pull-right or pull-left deprecated "> -->
+          <ul class="dropdown-menu dropdown-menu-right">
+          {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+            <li><a href="{{url_for('user_blueprint.settings')}}"> Settings </a></li>
+            {% else %}
+            <li><a href="{{url_for('user_blueprint.welcome')}}"> Welcome </a></li>
+            {% endif %}
+
+          <li><a href="{{url_for('user_blueprint.logout')}}"><i class="fa fa-sign-out pull-right"></i> Logout </a></li>
+          {% else %}
+          <li><a href="{{url_for('user_blueprint.signup')}}"><i class="fa fa-sign-in pull-right"></i> Signup </a></li>
+          <li><a href="{{url_for('user_blueprint.login')}}"><i class="fa fa-sign-in pull-right"></i> Login </a></li>
+          <li><a href="{{url_for('user_blueprint.begin_password_reset')}}">Forgot password</a></li>
+          {% endif %}
+        </ul>
+      </li>
+
+      <li role="presentation" class="dropdown">
+        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-envelope-o"></i>
+          <span class="badge bg-green">6</span>
+        </a>
+        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
+              <span>
+                <span>{{current_user.username}}</span>
+                <span class="time">3 mins ago</span>
+              </span>
+              <span class="message">
+                Film festivals used to be do-or-die moments for movie makers. They were where...
+              </span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
+              <span>
+                <span>{{current_user.username}}</span>
+                <span class="time">3 mins ago</span>
+              </span>
+              <span class="message">
+                Film festivals used to be do-or-die moments for movie makers. They were where...
+              </span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
+              <span>
+                <span>{{current_user.username}}</span>
+                <span class="time">3 mins ago</span>
+              </span>
+              <span class="message">
+                Film festivals used to be do-or-die moments for movie makers. They were where...
+              </span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
+              <span>
+                <span>John Doe</span>
+                <span class="time">3 mins ago</span>
+              </span>
+              <span class="message">
+                Film festivals used to be do-or-die moments for movie makers. They were where...
+              </span>
+            </a>
+          </li>
+          <li>
+            <div class="text-center">
+              <a>
+                <strong>See All Alerts</strong>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

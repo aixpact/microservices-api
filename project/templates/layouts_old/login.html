@@ -1,0 +1,13 @@
+{% extends 'base_site.html' %}
+
+{% block header %}
+  <a href="{{ url_for('user_blueprint.welcome') }}">
+    <img src="{{ url_for('static', filename='images/img.jpg') }}"
+         class="img-responsive center-block md-margin-bottom"
+         width="178" height="176" title="Snake Eyes" alt="Snake Eyes"/>
+  </a>
+{% endblock %}
+
+{% block footer %}
+  <li><a href="{{ url_for('user_blueprint.signup') }}">Sign up today</a></li>
+{% endblock %}

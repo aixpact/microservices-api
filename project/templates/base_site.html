@@ -1,0 +1,141 @@
+{% import 'macros/flash.html' as flash with context %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% block head %}
+      {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/ico" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- FJE added -->
+        <meta name="description"
+          content="{% block meta_description %}{% endblock %}">
+        <!-- csrf-token removed for testing microservices> -->
+      {% endblock meta %}
+
+      <title>Aixpact | {% block title %}{% endblock %}</title>
+
+      {% block stylesheets %}
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet"
+          href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet"
+          href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}">
+        <!-- bootstrap-daterangepicker -->
+        <link rel="stylesheet"
+          href="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.css') }}">
+        <!-- bootstrap-progressbar -->
+        <link rel="stylesheet"
+        href="{{ url_for('static', filename='vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}">
+        <!-- NProgress -->
+        <!-- <link rel="stylesheet" -->
+          <!-- href="{{ url_for('static', filename='vendors/nprogress/nprogress.css') }}" rel="stylesheet"> -->
+        <!-- iCheck -->
+        <link rel="stylesheet"
+        href="{{ url_for('static', filename='vendors/iCheck/skins/flat/green.css') }}">
+
+        <!-- Custom Theme Style - here is the dashboard CSS -->
+        <link rel="stylesheet"
+        href="{{ url_for('static', filename='build/css/custom.css') }}">
+
+      {% endblock stylesheets %}
+
+
+    {% endblock head %}
+  </head>
+
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+      <div class="container body">
+        <div class="main_container">
+
+          {% block top_navigation %}
+
+          {% endblock top_navigation %}
+
+          {% block sidebar %}
+
+          {% endblock sidebar %}
+
+          <div class="right_col" role="main">
+            {% block header %}
+              <!-- {{ header }} -->
+            {% endblock header %}
+
+            <!-- TODO check/change margin top -->
+              <!-- {{ flash.render() }} -->
+
+            <!-- <div class="jumbotron"> -->
+            {% block content %}
+              <!-- {{ content }} -->
+            {% endblock content %}
+            <!-- </div> -->
+
+            {{ flash.render() }}
+
+          </div>
+
+          {% block footer %}
+
+          {% endblock footer %}
+        </div>
+      </div>
+
+      {% block javascripts %}
+        <!-- jQuery Core 2.2.4 -->
+        <script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <!-- FastClick -->
+        <!-- <script src="{{ url_for('static', filename='vendors/fastclick/lib/fastclick.js') }}"></script> -->
+        <!-- NProgress -->
+        <!-- <script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script> -->
+        <!-- Bootstrap-progressbar -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
+        <!-- iCheck - adds state to clicks/checks -->
+        <script src="{{ url_for('static', filename='vendors/iCheck/icheck.min.js') }}"></script>
+        <!-- Moment -->
+        <script src="{{ url_for('static', filename='vendors/moment/min/moment.min.js') }}"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+        <!-- bootstrap-wysiwyg -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendors/google-code-prettify/src/prettify.js') }}"></script>
+        <!-- jQuery Tags Input -->
+        <script src="{{ url_for('static', filename='vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
+        <!-- Select2 - The jQuery replacement for select boxes -->
+        <script src="{{ url_for('static', filename='vendors/select2/dist/js/select2.full.min.js') }}"></script>
+        <!-- Autosize -->
+        <script src="{{ url_for('static', filename='vendors/autosize/dist/autosize.min.js') }}"></script>
+        <!-- starrr - star-rating -->
+        <script src="{{ url_for('static', filename='vendors/starrr/dist/starrr.js') }}"></script>
+        <!-- Stripe js-->
+        <!-- <script src="https://js.stripe.com/v2/"></script> -->
+
+        <!-- Custom scripts -->
+        <script
+          src="{{ url_for('static', filename='build/js/main.js') }}">
+        </script>
+        <!-- Custom Theme Scripts -->
+        <script
+          src="{{ url_for('static', filename='build/js/custom.js') }}">
+        </script>
+
+        <!-- Load React. -->
+        <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+        <!-- <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script> -->
+        <!-- <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script> -->
+
+
+
+      {% endblock %}
+
+    {% endblock body %}
+  </body>
+</html>

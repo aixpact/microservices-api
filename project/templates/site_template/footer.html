@@ -1,0 +1,12 @@
+<div class="pull-left">
+    <p>By using our site, you acknowledge that you have read and understand our
+        <a href="{{ url_for('base_blueprint.cookie') }}" > Cookie Policy,</a>
+        <a href="{{ url_for('base_blueprint.privacy') }}" > Privacy Policy</a>, and our
+        <a href="{{ url_for('base_blueprint.terms') }}" > Terms of Service</a>.
+        </p>
+</div>
+<br>
+<div class="pull-right">
+  <a href="https://{{ config.get('APP_NAME') }}.com"> {{ config.get('APP_NAME') | capitalize }} &copy 2019 </a>
+</div>
+<div class="clearfix"></div>
