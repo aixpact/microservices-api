@@ -1,3 +1,4 @@
+import OrderedDict
 from flask import current_app
 from project.extensions import db, flask_bcrypt
 import datetime
@@ -6,7 +7,7 @@ from .blacklist import BlacklistToken
 import jwt
 
 
-class User(UserMixin, ResourceMixin, db.Model):
+class User(db.Model):
     ROLE = OrderedDict([
         ('unregistered', 'Unregistered'),
         ('super', 'Super'),
