@@ -6,6 +6,28 @@ from .blacklist import BlacklistToken
 # from ..config import key
 import jwt
 
+from sqlalchemy import DateTime
+from sqlalchemy.types import TypeDecorator
+# from lib.util_datetime import tzware_datetime
+
+
+class AwareDateTime(TypeDecorator):
+    """
+    A DateTime type which can only store tz-aware DateTimes.
+
+    Source:
+      https://gist.github.com/inklesspen/90b554c864b99340747e
+    """
+    impl = DateTime(timezone=True)
+
+    def process_bind_param(self, value, dialect):
+        if isinstance(value, datetime.datetime) and value.tzinfo is None:
+            raise ValueError('{!r} must be TZ-aware'.format(value))
+        return value
+
+    def __repr__(self):
+        return 'AwareDateTime()'
+
 
 class User(db.Model):
     ROLE = OrderedDict([
@@ -115,7 +137,7 @@ class User(db.Model):
         :return: integer|string
         """
         try:
-            payload = jwt.decode(auth_token, key)
+            payload = jwt.decode(auth_token, current_app.config['SECRET_KEY'])
             is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
             if is_blacklisted_token:
                 return 'Token blacklisted. Please log in again.'
